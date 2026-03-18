@@ -23,6 +23,11 @@ const Execution = sequelize.define(
             type: DataTypes.JSON
         },
 
+        logs: {
+            type: DataTypes.JSON,
+            defaultValue: []
+        },
+
         started_at: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW

@@ -38,3 +38,18 @@ exports.getWorkflows = async (req, res) => {
   }
 
 };
+
+exports.updateWorkflow = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, input_schema, is_active } = req.body;
+    await Workflow.update(
+      { name, input_schema, is_active },
+      { where: { id } }
+    );
+    const updated = await Workflow.findByPk(id);
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

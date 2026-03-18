@@ -40,3 +40,28 @@ exports.getRules = async (req, res) => {
   }
 
 };
+
+exports.updateRule = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { condition, next_step_id, priority } = req.body;
+    await Rule.update(
+      { condition, next_step_id, priority },
+      { where: { id } }
+    );
+    const updated = await Rule.findByPk(id);
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteRule = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Rule.destroy({ where: { id } });
+    res.json({ message: "Rule deleted" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

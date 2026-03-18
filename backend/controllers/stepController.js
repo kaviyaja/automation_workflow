@@ -40,3 +40,28 @@ exports.getSteps = async (req, res) => {
   }
 
 };
+
+exports.updateStep = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, step_type, step_order } = req.body;
+    await Step.update(
+      { name, step_type, step_order },
+      { where: { id } }
+    );
+    const updated = await Step.findByPk(id);
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteStep = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Step.destroy({ where: { id } });
+    res.json({ message: "Step deleted" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

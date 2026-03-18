@@ -9,24 +9,21 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmail = async (to, subject, message) => {
-
     try {
+        console.log("👉 Sending email to:", to);
 
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
             from: "jayakumarkaviya22@gmail.com",
             to: to,
             subject: subject,
             text: message
         });
 
-        console.log("📧 Email sent successfully");
+        console.log("✅ Email sent:", info.response);
 
     } catch (error) {
-
-        console.log("Email error:", error);
-
+        console.log("❌ Email error:", error);
     }
-
 };
 
 module.exports = sendEmail;

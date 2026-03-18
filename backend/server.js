@@ -18,7 +18,7 @@ app.use("/steps", stepRoutes);
 app.use("/rules", ruleRoutes);
 app.use("/executions", executionRoutes);
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
 
   console.log("Database synced");
 
